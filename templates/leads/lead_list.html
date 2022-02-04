@@ -1,0 +1,142 @@
+{% extends 'base.html' %} {% block content %}
+
+<section class="text-gray-600 body-font">
+
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex justify-between">
+        <h1 class="mb-4">Leads</h1>
+        <a class="md:ml-auto justify-between text-grey-500 hover:text-blue-800" href="{% url 'leads:category-list' %}">Go to categories</a>
+        {% if request.user.is_organisor %}
+        <a class="md:ml-auto justify-between text-grey-500 hover:text-blue-800" href="{% url 'leads:lead-create' %}">Create a new lead</a>
+        {% endif %}
+        
+    </div>
+    <hr class="w-full mt-4 mb-4">
+    {% for lead in leads %}
+    <div
+      class="
+        lg:w-2/3
+        flex flex-col
+        sm:flex-row sm:items-center
+        items-start
+        mx-auto
+        mb-4
+      "
+    >
+      <h1
+        class="flex-grow sm:pr-16 text-2xl font-medium title-font text-gray-900"
+      >
+        <a href="{% url 'leads:lead-detail' lead.pk %}"
+          >{{lead.first_name}}{{lead.last_name}}</a
+        >
+      </h1>
+      <a
+        href="{% url 'leads:lead-update' lead.pk %}"
+        class="
+          flex-shrink-0
+          text-white
+          bg-orange-400
+          border-0
+          py-1
+          px-4
+          focus:outline-none
+          hover:bg-orange-600
+          rounded
+          text-lg
+          mt-10
+          mr-2
+          sm:mt-0
+        "
+        >Update</a
+      >
+      <a
+        href="{% url 'leads:lead-delete' lead.pk %}"
+        class="
+          flex-shrink-0
+          text-white
+          bg-red-400
+          border-0
+          py-1
+          px-4
+          focus:outline-none
+          hover:bg-red-600
+          rounded
+          text-lg
+          mt-10
+          sm:mt-0
+        "
+        >Delete</a
+      >
+    </div>
+    <hr class="mb-4">
+    {% endfor %}
+    {% if unassigned_leads.exists %}
+    <h1>Unassigned Leads</h1>
+    <hr class="mt-4 mb-4">
+      {% for lead in unassigned_leads %}
+      <div
+      class="
+        lg:w-2/3
+        flex flex-col
+        sm:flex-row sm:items-center
+        items-start
+        mx-auto
+        mb-4
+      "
+    >
+      <h1
+        class="flex-grow sm:pr-16 text-2xl font-medium title-font text-gray-900"
+      >
+        <a href="{% url 'leads:assign-agent' lead.pk %}"
+          >
+          {{lead.first_name}}{{lead.last_name}}
+          <br>
+          <small>Assign an agent</small>
+          </a
+        >
+      </h1>
+      <a
+        href="{% url 'leads:lead-update' lead.pk %}"
+        class="
+          flex-shrink-0
+          text-white
+          bg-orange-400
+          border-0
+          py-1
+          px-4
+          focus:outline-none
+          hover:bg-orange-600
+          rounded
+          text-lg
+          mt-10
+          mr-2
+          sm:mt-0
+        "
+        >Update</a
+      >
+      <a
+        href="{% url 'leads:lead-delete' lead.pk %}"
+        class="
+          flex-shrink-0
+          text-white
+          bg-red-400
+          border-0
+          py-1
+          px-4
+          focus:outline-none
+          hover:bg-red-600
+          rounded
+          text-lg
+          mt-10
+          sm:mt-0
+        "
+        >Delete</a
+      >
+    </div>
+    <hr class="mb-4">
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+
+{% endblock content %}
