@@ -159,4 +159,4 @@ if not DEBUG:
     SECURE_HSTS_PRELOAD = True
     X_FRAME_OPTIONS = "DENY"
 
-ALLOWED_HOSTS = ["crm-dsp6g.ondigitalocean.app"]
+ALLOWED_HOSTS = ["*"]
