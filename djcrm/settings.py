@@ -138,7 +138,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = "static_root"
 
 AUTH_USER_MODEL = 'leads.User'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 LOGIN_REDIRECT_URL = '/leads'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = "/login"
@@ -158,5 +158,11 @@ if not DEBUG:
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
     X_FRAME_OPTIONS = "DENY"
+    EMAIL_HOST = env("EMAIL_HOST")
+    EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+    EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+    EMAIL_USE_TLS = env("EMAIL_USE_TLS")
+    DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
 
 ALLOWED_HOSTS = ["*"]
+
